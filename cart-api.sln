@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{514DFE6A-79AE-4C7B-8D57-C98F4AC6EAA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cart-api", "src\cart-api\cart-api.csproj", "{2C31E81C-52B9-4E03-83EE-99A453B033DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C31E81C-52B9-4E03-83EE-99A453B033DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C31E81C-52B9-4E03-83EE-99A453B033DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C31E81C-52B9-4E03-83EE-99A453B033DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C31E81C-52B9-4E03-83EE-99A453B033DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2C31E81C-52B9-4E03-83EE-99A453B033DB} = {514DFE6A-79AE-4C7B-8D57-C98F4AC6EAA7}
+	EndGlobalSection
+EndGlobal
