@@ -19,18 +19,18 @@ namespace cart_api.Repositories
         }
 
         public async Task<int> GetTotalQuantityAsync(Expression<Func<Cart, bool>> filter) => await _collection.AsQueryable()
-            .Where(filter).SelectMany(s => s.Items).Select(s => s.Quantity).SumAsync(s => s);
+            .Where(filter).SelectMany(s => s.Items).Select(s => s.Quantity).SumAsync();
 
-        public async Task<bool> AddCartItemAsync(string username, CartItem item)
+        public async Task<bool> AddCartItemAsync(string userId, CartItem item)
         {
             var update = UpdateDefinitionBuilder.Push(u => u.Items, item);
-            return await UpdateDocumentAsync(f => f.Username == username, update);
+            return await UpdateDocumentAsync(f => f.UserId == userId, update);
         }
 
-        public async Task<bool> RemoveCartItemAsync(string username, string productId)
+        public async Task<bool> RemoveCartItemAsync(string userId, string productId)
         {
             var update = UpdateDefinitionBuilder.PullFilter(f => f.Items, filter => filter.ProductId == productId);
-            return await UpdateDocumentAsync(f => f.Username == username, update);
+            return await UpdateDocumentAsync(f => f.UserId == userId, update);
         }
     }
 }

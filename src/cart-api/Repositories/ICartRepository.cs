@@ -12,8 +12,8 @@ namespace cart_api.Repositories
 
         Task<int> GetTotalQuantityAsync(Expression<Func<Cart, bool>> filter);
 
-        Task<bool> AddCartItemAsync(string username, CartItem item);
+        Task<bool> AddCartItemAsync(string userId, CartItem item);
 
-        Task<bool> RemoveCartItemAsync(string username, string productId);
+        Task<bool> RemoveCartItemAsync(string userId, string productId);
     }
 }

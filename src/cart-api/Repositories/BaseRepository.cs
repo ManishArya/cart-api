@@ -18,7 +18,7 @@ namespace cart_api.Repositories
         protected BaseRepository(ICartDBContext context)
         {
             _context = context;
-            _collection = _context.GetCollection<TDocument>(typeof(TDocument).Name);
+            _collection = _context.Get<TDocument>(typeof(TDocument).Name);
         }
 
         protected UpdateDefinitionBuilder<TDocument> UpdateDefinitionBuilder => Builders<TDocument>.Update;
@@ -38,7 +38,6 @@ namespace cart_api.Repositories
             document.CreatedAt = DateTime.Now;
             await _collection.InsertOneAsync(document);
         }
-
 
         public virtual async Task<bool> RemoveDocumentAsync(Expression<Func<TDocument, bool>> filter)
         {

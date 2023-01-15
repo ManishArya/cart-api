@@ -14,7 +14,7 @@ namespace cart_api.Models.Dtos
         public string Id { get; set; }
 
         [JsonIgnore]
-        public string Username { get; set; }
+        public string UserId { get; set; }
 
         public IEnumerable<CartItemDto> Items { get; set; }
 
@@ -22,7 +22,7 @@ namespace cart_api.Models.Dtos
         {
             get
             {
-                return Items.Sum(c => c.Price);
+                return Items.Sum(c => c.Price * c.Quantity);
             }
         }
 

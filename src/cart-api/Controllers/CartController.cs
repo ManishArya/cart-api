@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace cart_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [LoggingFilter]

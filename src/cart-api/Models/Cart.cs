@@ -6,7 +6,7 @@ namespace cart_api.Models
     {
         public Cart() => Items = new HashSet<CartItem>();
 
-        public string Username { get; set; }
+        public string UserId { get; set; }
 
         public ICollection<CartItem> Items { get; set; }
     }

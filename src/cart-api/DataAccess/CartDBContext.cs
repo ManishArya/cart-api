@@ -12,6 +12,6 @@ namespace cart_api.DataAccess
             _database = client.GetDatabase(cartStoreDatabaseSettings.DatabaseName);
         }
 
-        public IMongoCollection<T> GetCollection<T>(string name) => _database.GetCollection<T>(name);
+        public IMongoCollection<TDocument> Get<TDocument>(string name) => _database.GetCollection<TDocument>(name);
     }
 }

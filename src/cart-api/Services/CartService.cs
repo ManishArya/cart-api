@@ -25,25 +25,25 @@ namespace cart_api.Services
             _contextAccessor = contextAccessor;
         }
 
-        private string Username => _contextAccessor.HttpContext.User.Identity.Name;
+        private string UserId => _contextAccessor.HttpContext.User.Identity.Name;
 
         public async Task<ApiResponse<CartDto>> GetAsync()
         {
-            var cartEntity = await _cartRepository.GetDocumentAsync(f => f.Username == Username);
-            var cart = _mapper.Map<CartDto>(cartEntity);
-            return new ApiResponse<CartDto>(cart);
+            var cartDocument = await _cartRepository.GetDocumentAsync(f => f.UserId == UserId);
+            var cartDocumentDto = _mapper.Map<CartDto>(cartDocument);
+            return new ApiResponse<CartDto>(cartDocumentDto);
         }
 
         public async Task AddItemAsync(CartItemDto cartItemDto)
         {
             var cartItem = _mapper.Map<CartItem>(cartItemDto);
-            var cartId = await _cartRepository.GetCartIdAsync(d => d.Username == Username);
+            var cartId = await _cartRepository.GetCartIdAsync(d => d.UserId == UserId);
 
             if (cartId == null)
             {
                 var cart = new Cart()
                 {
-                    Username = Username,
+                    UserId = UserId,
                 };
                 cart.Items.Add(cartItem);
                 await _cartRepository.AddDocumentAsync(cart);
@@ -56,7 +56,7 @@ namespace cart_api.Services
                 if (cartDocument == null)
                 {
                     cartItem.Quantity = 1;
-                    await _cartRepository.AddCartItemAsync(Username, cartItem);
+                    await _cartRepository.AddCartItemAsync(UserId, cartItem);
                 }
                 else
                 {
@@ -73,7 +73,7 @@ namespace cart_api.Services
                 throw new InvalidOperationException("Negative or zero quantity can not be updated");
             }
 
-            Expression<Func<Cart, bool>> filter = f => f.Username == Username && f.Items.Any(item => item.ProductId == productId);
+            Expression<Func<Cart, bool>> filter = f => f.UserId == UserId && f.Items.Any(item => item.ProductId == productId);
             Expression<Func<Cart, int>> field = f => f.Items.ElementAt(-1).Quantity;
 
             var result = await _cartRepository.UpdateDocumentAsync(filter, field, quantity);
@@ -82,19 +82,19 @@ namespace cart_api.Services
 
         public async Task<ApiResponse<bool>> RemoveCartItemAsync(string productId)
         {
-            var result = await _cartRepository.RemoveCartItemAsync(Username, productId);
+            var result = await _cartRepository.RemoveCartItemAsync(UserId, productId);
             return new ApiResponse<bool>(result);
         }
 
         public async Task<BaseResponse> RemoveCartAsync()
         {
-            await _cartRepository.RemoveDocumentAsync(c => c.Username == Username);
+            await _cartRepository.RemoveDocumentAsync(c => c.UserId == UserId);
             return new BaseResponse(System.Net.HttpStatusCode.OK);
         }
 
         public async Task<ApiResponse<int>> GetTotalQuantityAsync()
         {
-            var count = await _cartRepository.GetTotalQuantityAsync(c => c.Username == Username);
+            var count = await _cartRepository.GetTotalQuantityAsync(c => c.UserId == UserId);
             return new ApiResponse<int>(count);
         }
     }

@@ -80,7 +80,7 @@ app.UseAuthorization();
 app.Use(async (context, next) =>
 {
     var userId = context.User.Identity.IsAuthenticated ? context.User.Identity.Name : "";
-    LogContext.PushProperty("UserName", userId);
+    LogContext.PushProperty("UserId", userId);
     LogContext.PushProperty("IP", context.Request.HttpContext.Connection.RemoteIpAddress.MapToIPv4());
     await next();
 });
